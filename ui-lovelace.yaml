@@ -1,0 +1,105 @@
+title: HAL 0.1
+# Include external resources
+resources:
+  - url: /local/my-custom-card.js
+    type: js
+  - url: /local/my-webfont.css
+    type: css
+
+# Optional background for all views. Check https://developer.mozilla.org/en-US/docs/Web/CSS/background for more examples.
+background: center / cover no-repeat url("/background.png") fixed
+# Exclude entities from "Unused entities" view
+excluded_entities:
+  - weblink.router
+views:
+    # View tab title.
+  - title: Example
+    # Unique id for direct access /lovelace/${id}. If you don't specify one, it is added automatically.
+    id: example
+    # Optional background (overwrites the global background).
+    background: radial-gradient(crimson, skyblue)
+    # Each view can have a different theme applied. Theme should be defined in the frontend.
+    theme: dark-mode
+    # The cards to show on this view.
+    cards:
+        # The filter card will filter entities for their state
+      - id: peoplehome # Every card needs an ID, if you don't specify one, it is added automatically.
+        type: entity-filter
+        entities:
+          - device_tracker.paulus
+          - device_tracker.anne_there
+        state_filter:
+          - 'home'
+        card:
+          type: glance
+          title: People that are home
+
+        # The picture entity card will represent an entity with a picture
+      - type: picture-entity
+        image: https://www.home-assistant.io/images/default-social.png
+        entity: light.bed_light
+
+    # Specify a tab icon if you want the view tab to be an icon.
+  - icon: mdi:home-assistant
+    # Title of the view. Will be used as the tooltip for tab icon
+
+  - icon: mdi:weather-rainy
+    title: Weather
+    cards:
+      - type: weather-forecast
+        entity: weather.dark_sky
+#      - type: weather-forecast
+#        entity: weather.darksky
+  - icon: mdi:lightbulb-on-outline
+    title: Lighting
+    cards:
+        # Entities card will take a list of entities and show their state.
+      - type: entities
+        # Title of the entities card
+        title: Eating Bar
+        # The entities here will be shown in the same order as specified.
+        # Each entry is an entity ID or a map with extra options.
+        entities:
+          - light.hue_color_lamp_1
+          - light.hue_color_lamp_2
+          - light.hue_color_lamp_3
+          - light.hue_color_lamp_4
+
+      - type: entities
+        # Title of the entities card
+        title: Hall
+        # The entities here will be shown in the same order as specified.
+        # Each entry is an entity ID or a map with extra options.
+        entities:
+          - light.hue_white_lamp_1
+          - light.hue_white_lamp_2
+          - light.hue_white_lamp_3
+      - type: entities
+        # Title of the entities card
+        title: Last Light
+        # The entities here will be shown in the same order as specified.
+        # Each entry is an entity ID or a map with extra options.
+        entities:
+          - light.hue_white_lamp_4
+
+  - icon: mdi:webcam
+  - icon: mdi:thermometer
+    cards:
+      - type: thermostat
+        entity: climate.bathroom
+
+      #- platform: ffmpeg
+      #   name: Samsung Cam1
+      #   input: -rtsp_transport tcp -i rtsp://admin:{password to camera}@{IP address of camera}/onvif/profile5/media.smp
+
+
+  - title: test    # The markdown card will render markdown text.
+    cards:
+      -type: markdown
+      title: Lovelace
+      content: >
+        Welcome to your **Lovelace UI**.
+
+
+
+          # test ##
